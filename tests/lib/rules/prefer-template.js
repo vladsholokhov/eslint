@@ -223,6 +223,30 @@ ruleTester.run("prefer-template", rule, {
             code: "foo + '\\0'",
             output: "`${foo  }\\0`",
             errors
+        },
+
+        // https://github.com/eslint/eslint/issues/15083
+        {
+            code: "\"Hello \" + \"world \" + test",
+            output: "`Hello world ${  test}`",
+            errors
+        },
+        {
+            code: "var foo = \"Hello \" + \"world \" + \"another \" + test",
+            output: "var foo = `Hello world another ${  test}`",
+            errors
+        },
+        {
+            code: "\"Hello \" + \"'world' \" + test",
+            output: "`Hello 'world' ${  test}`",
+            errors
+        },
+        {
+            code: `"default-src 'self' https://*.google.com;"
+            + "frame-ancestors 'none';"
+            + "report-to " + test + ";"`,
+            output: "`default-src 'self' https://*.google.com;frame-ancestors 'none';report-to ${  test  };`",
+            errors
         }
     ]
 });
