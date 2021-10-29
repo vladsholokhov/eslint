@@ -227,25 +227,37 @@ ruleTester.run("prefer-template", rule, {
 
         // https://github.com/eslint/eslint/issues/15083
         {
-            code: "\"Hello \" + \"world \" + test",
-            output: "`Hello world ${  test}`",
+            code: "'a' + 'b' + foo",
+            output: "'a' + `b${  foo}`",
+            errors
+        },
+        {
+            code: "'a' + 'b' + foo + 'c' + 'd'",
+            output: "'a' + `b${  foo  }c` + `d`",
             errors
         },
         {
             code: "var foo = \"Hello \" + \"world \" + \"another \" + test",
-            output: "var foo = `Hello world another ${  test}`",
+            output: "var foo = \"Hello \" + \"world \" + `another ${  test}`",
+            errors
+        },
+        {
+            code: "'Hello ' + '\"world\" ' + test",
+            output: "'Hello ' + `\"world\" ${  test}`",
             errors
         },
         {
             code: "\"Hello \" + \"'world' \" + test",
-            output: "`Hello 'world' ${  test}`",
+            output: "\"Hello \" + `'world' ${  test}`",
             errors
         },
         {
             code: `"default-src 'self' https://*.google.com;"
             + "frame-ancestors 'none';"
-            + "report-to " + test + ";"`,
-            output: "`default-src 'self' https://*.google.com;frame-ancestors 'none';report-to ${  test  };`",
+            + "report-to " + foo + ";"`,
+            output: `"default-src 'self' https://*.google.com;"
+            + "frame-ancestors 'none';"
+            + \`report-to \${  foo  };\``,
             errors
         }
     ]
