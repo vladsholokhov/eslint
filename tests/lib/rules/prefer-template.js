@@ -227,6 +227,15 @@ ruleTester.run("prefer-template", rule, {
 
         // https://github.com/eslint/eslint/issues/15083
         {
+            code: `"default-src 'self' https://*.google.com;"
+            + "frame-ancestors 'none';"
+            + "report-to " + foo + ";"`,
+            output: `"default-src 'self' https://*.google.com;"
+            + "frame-ancestors 'none';"
+            + \`report-to \${  foo  };\``,
+            errors
+        },
+        {
             code: "'a' + 'b' + foo",
             output: "'a' + `b${  foo}`",
             errors
@@ -267,6 +276,16 @@ ruleTester.run("prefer-template", rule, {
             errors
         },
         {
+            code: "'a' + foo + ('b' + bar + 'c') + ('d' + test)",
+            output: "`a${  foo  }b${  bar  }c` + `d${  test}`",
+            errors
+        },
+        {
+            code: "'a' + foo + ('b' + 'c') + ('d' + bar)",
+            output: "`a${  foo  }b` + 'c' + `d${  bar}`",
+            errors
+        },
+        {
             code: "foo + ('a' + bar + 'b') + 'c' + test",
             output: "`${foo  }a${  bar  }b` + `c${  test}`",
             errors
@@ -284,15 +303,6 @@ ruleTester.run("prefer-template", rule, {
         {
             code: "\"Hello \" + \"'world' \" + test",
             output: "\"Hello \" + `'world' ${  test}`",
-            errors
-        },
-        {
-            code: `"default-src 'self' https://*.google.com;"
-            + "frame-ancestors 'none';"
-            + "report-to " + foo + ";"`,
-            output: `"default-src 'self' https://*.google.com;"
-            + "frame-ancestors 'none';"
-            + \`report-to \${  foo  };\``,
             errors
         }
     ]
