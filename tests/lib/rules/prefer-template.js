@@ -256,6 +256,26 @@ ruleTester.run("prefer-template", rule, {
             errors
         },
         {
+            code: "'a' + 'b' + foo + ('c' + 'd') + ('e' + 'f')",
+            output: "'a' + `b${  foo  }c` + 'd' + 'e' + 'f'",
+            errors
+        },
+        {
+            code: "foo + ('a' + 'b') + ('c' + 'd')",
+            output: "`${foo  }a` + 'b' + 'c' + 'd'",
+            errors
+        },
+        {
+            code: "'a' + foo + ('b' + 'c') + ('d' + bar + 'e')",
+            output: "`a${  foo  }b` + 'c' + `d${  bar  }e`",
+            errors
+        },
+        {
+            code: "foo + ('b' + 'c') + ('d' + bar + 'e')",
+            output: "`${foo  }b` + 'c' + `d${  bar  }e`",
+            errors
+        },
+        {
             code: "'a' + 'b' + foo + ('c' + 'd' + 'e')",
             output: "'a' + `b${  foo  }c` + 'd' + 'e'",
             errors
