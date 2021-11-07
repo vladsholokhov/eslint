@@ -316,6 +316,31 @@ ruleTester.run("prefer-template", rule, {
             errors
         },
         {
+            code: "'a' + '`b`' + c",
+            output: "'a' + `\\`b\\`${  c}`",
+            errors
+        },
+        {
+            code: "'a' + '`b` + `c`' + d",
+            output: "'a' + `\\`b\\` + \\`c\\`${  d}`",
+            errors
+        },
+        {
+            code: "'a' + b + ('`c`' + '`d`')",
+            output: "`a${  b  }\\`c\\`` + '`d`'",
+            errors
+        },
+        {
+            code: "'`a`' + b + ('`c`' + '`d`')",
+            output: "`\\`a\\`${  b  }\\`c\\`` + '`d`'",
+            errors
+        },
+        {
+            code: "foo + ('`a`' + bar + '`b`') + '`c`' + test",
+            output: "`${foo  }\\`a\\`${  bar  }\\`b\\`` + `\\`c\\`${  test}`",
+            errors
+        },
+        {
             code: "var foo = \"Hello \" + \"world \" + \"another \" + test",
             output: "var foo = \"Hello \" + \"world \" + `another ${  test}`",
             errors
