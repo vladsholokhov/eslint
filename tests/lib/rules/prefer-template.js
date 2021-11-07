@@ -256,6 +256,11 @@ ruleTester.run("prefer-template", rule, {
             errors
         },
         {
+            code: "'a' + 'b' + foo + ('a' + 'b')",
+            output: "'a' + `b${  foo  }a` + 'b'",
+            errors
+        },
+        {
             code: "'a' + 'b' + foo + ('c' + 'd') + ('e' + 'f')",
             output: "'a' + `b${  foo  }c` + 'd' + 'e' + 'f'",
             errors
