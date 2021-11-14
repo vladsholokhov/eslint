@@ -366,6 +366,11 @@ ruleTester.run("prefer-template", rule, {
             errors
         },
         {
+            code: "a + ('`b` + `c`' + '`d`') + e",
+            output: "`${a  }\\`b\\` + \\`c\\`` + `\\`d\\`${  e}`",
+            errors
+        },
+        {
             code: "var foo = \"Hello \" + \"world \" + \"another \" + test",
             output: "var foo = \"Hello \" + \"world \" + `another ${  test}`",
             errors
