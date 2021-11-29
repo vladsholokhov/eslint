@@ -19,7 +19,7 @@ To report a security vulnerability in ESLint, please use our [HackerOne program]
 
 ## Contributing Code
 
-Please sign our [Contributor License Agreement](https://cla.js.foundation/eslint/eslint) and read over the [Pull Request Guidelines](https://eslint.org/docs/developer-guide/contributing/pull-requests).
+In order to submit code or documentation to an ESLint project, please sign our [Contributor License Agreement](https://eslint.org/docs/developer-guide/contributing/#signing-the-cla) and read over the [Pull Request Guidelines](https://eslint.org/docs/developer-guide/contributing/pull-requests).
 
 ## Full Documentation
 
